@@ -78,6 +78,7 @@ do
     ;;
     b)
       Install 'vim'
+      conf/vim.sh
       cp conf/dot.vimrc ~/.vimrc
     ;;
     c)
