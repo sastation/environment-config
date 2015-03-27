@@ -1,3 +1,3 @@
-# setup private envrionment of Linux
+# Setup private envrionment of Linux
 
 ## dot.screen
