@@ -1,3 +1,3 @@
-# Initialing private envrionment for Ubuntu 12.04+
+# setup private envrionment of Linux
 
 ## dot.screen
