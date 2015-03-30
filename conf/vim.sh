@@ -1,8 +1,8 @@
 #!/bin/sh
 
 Common() {
-    echo >> ~/.profile
-    echo "export TERM='xterm-256color'" >> ~/.profile
+    #echo >> ~/.profile
+    #echo "export TERM='xterm-256color'" >> ~/.profile
     
     mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
     
