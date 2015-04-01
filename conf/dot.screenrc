@@ -2,8 +2,8 @@ vbell off
 hardstatus off
 hardstatus alwayslastline
 #hardstatus string "%{.kB}%-w%{..M}%n %t%{-}%+w %=%{..B} %H(%l) %{..B} %Y/%m/%d %c:%s "
-#hardstatus string "%{.kB}%-w%{..M}%n %t%{-}%+w %=%{..B} %H(%l) %{..B}"
-hardstatus string  "%{gk}host:%H %{gk} %-w%{rb}%n*%t%{gk}%+w%{k}"
+hardstatus string "%{gk}Host:%H %{.kc}%-w%{..M}%n %t%{-}%+w %=%{..B} %u %{..B}"
+#hardstatus string  "%{gk}host:%H %{gk} %-w%{rb}%n*%t%{gk}%+w%{k}"
 startup_message off
 autodetach on
 defscrollback 2000
