@@ -18,6 +18,11 @@ OS() {
     fi
 }
 OS #get operation distribution
+if [ $os_type != "ubuntu" -a $os_type != "debian" ]; then
+    echo "Only for Ubuntu/Debian!"
+    echo "Your OS: "$os_type
+    exit -1
+fi
 
 Apt() {
     # install packages for ubuntu
