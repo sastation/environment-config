@@ -1,3 +1,4 @@
+set t_ti= t_te=
 set t_Co=256
 "set background=light
 "colorscheme phd

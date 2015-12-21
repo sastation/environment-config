@@ -91,8 +91,8 @@ do
     4)
       Install "tmux"
       echo >> ~/.profile
-      #echo "export TERM=xterm-256color" >> ~/.profile
-      echo "export TERM=linux" >> ~/.profile
+      echo "export TERM=xterm-256color" >> ~/.profile
+      #echo "export TERM=linux" >> ~/.profile
       echo "alias tmux='tmux -2'" >> ~/.profile
     ;;
     Q)
