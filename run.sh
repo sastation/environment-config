@@ -52,15 +52,11 @@ Install() {
 while [ $MAX -gt 0 ] 
 do
     printf '%*s' $MASK|tr ' ' '*';echo
-    echo "* a. Config screen for current user"
-    echo "* b. Config vim for current user"
-    echo "* c. Config ssh for current user"
-    echo 
     echo "* 0. Upgrade system" 
-    echo "* 1. Config sshd for system"
-    echo "* 2. Config stunnel for system"
-    echo "* 3. Config squid for system"
-    echo "* 4. Config bind for system"
+    echo "* 1. Config screen for current user"
+    echo "* 2. Config vim for current user"
+    echo "* 3. Config ssh for current user"
+    echo "* 4. Config tmux for current user"
     echo 
     echo "* Q: Quit"
     printf '%*s' $MASK|tr ' ' '*';echo
@@ -71,20 +67,27 @@ do
     case $opt in
     0)
       $AG update
+      $AG upgrade
     ;;
-    a)
+    1)
       Install 'screen'
       cp conf/dot.screenrc ~/.screenrc
     ;;
-    b)
+    2)
       Install 'vim'
       conf/vim.sh
       cp conf/dot.vimrc ~/.vimrc
     ;;
-    c)
+    3)
       Install 'openssh-client'
       mkdir -p ~/.ssh
       cp conf/ssh_client.conf ~/.ssh/config
+    ;;
+    4)
+      Install "tmux"
+      echo >> ~/.profile
+      echo "export TERM='xterm-256color'" >> ~/.profile
+      echo "alias tmux='tmux -2'" >> ~/.profile
     ;;
     Q)
       break
