@@ -1,4 +1,5 @@
-set t_ti= t_te=
+set term=linux              " donot clear screen on quit
+"set t_ti= t_te=            " donot send terminal signal to clear screen on quit
 set t_Co=256
 "set background=light
 "colorscheme phd
