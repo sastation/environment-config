@@ -62,6 +62,7 @@ do
     echo "* 2. Config vim for current user"
     echo "* 3. Config ssh for current user"
     echo "* 4. Config tmux for current user"
+    echo "* 5. Config zsh for current user"
     echo 
     echo "* Q: Quit"
     printf '%*s' $MASK|tr ' ' '*';echo
@@ -94,6 +95,11 @@ do
       echo "export TERM=xterm-256color" >> ~/.profile
       #echo "export TERM=linux" >> ~/.profile
       echo "alias tmux='tmux -2'" >> ~/.profile
+    ;;
+    5)
+      Install "zsh"
+      cp conf/zwang*.zsh.theme ~/.oh-my-zsh/themes/
+      sed -i "s/^ZSH_THEME=.*/ZSH_THEME=zwang/" ~/.zshrc
     ;;
     Q)
       break
