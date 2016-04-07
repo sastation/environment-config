@@ -98,7 +98,15 @@ do
     ;;
     5)
       Install "zsh"
-      cp conf/zwang*.zsh.theme ~/.oh-my-zsh/themes/
+      #*** install on-my-zsh
+      printf "Do you want to install oh-my-zsh? (y/No)"
+      read opt
+      case $opt in
+      y|yes)
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      esac
+      #***
+      cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
       sed -i "s/^ZSH_THEME=.*/ZSH_THEME=zwang/" ~/.zshrc
     ;;
     Q)
