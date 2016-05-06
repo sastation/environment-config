@@ -107,7 +107,7 @@ do
       esac
       #***
       cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
-      sed -i "s/^ZSH_THEME=.*/ZSH_THEME=zwang-rkj\n#ZSH_THEME=zwang_ys/" ~/.zshrc
+      sed -i "s/^ZSH_THEME=.*/ZSH_THEME=zwang-rkj\n#ZSH_THEME=zwang-ys/" ~/.zshrc
     ;;
     Q)
       break
