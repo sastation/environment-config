@@ -108,6 +108,12 @@ do
       #***
       cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
       sed -i "s/^ZSH_THEME=.*/ZSH_THEME=zwang-rkj\n#ZSH_THEME=zwang-ys/" ~/.zshrc
+    
+      echo >> ~/.zshrc
+      echo "# key bindings" >> ~/.zshrc
+      echo 'bindkey "\e[1~" beginning-of-line' >> ~/.zshrc
+      echo 'bindkey "\e[4~" end-of-line' >> ~/.zshrc
+
     ;;
     Q)
       break

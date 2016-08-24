@@ -9,8 +9,8 @@ set background=dark
 syntax on
 filetype on
 
-set ai "set autoindent
-"set noai "set noautoindent
+"set ai "set autoindent
+set noai "set noautoindent
 
 set tabstop=4
 set softtabstop=4
