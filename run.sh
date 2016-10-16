@@ -63,6 +63,7 @@ do
     echo "* 3. Config ssh for current user"
     echo "* 4. Config tmux for current user"
     echo "* 5. Config zsh for current user"
+    echo "* 6. Config dash/bash for current user"
     echo 
     echo "* Q: Quit"
     printf '%*s' $MASK|tr ' ' '*';echo
@@ -113,8 +114,11 @@ do
       echo "# key bindings" >> ~/.zshrc
       echo 'bindkey "\e[1~" beginning-of-line' >> ~/.zshrc
       echo 'bindkey "\e[4~" end-of-line' >> ~/.zshrc
-
     ;;
+    6)
+      echo "alias l='ls -lFh'" >> ~/.profile
+      echo "alias ll='ls -laFh'" >> ~/.profile
+    ;;        
     Q)
       break
     ;;
