@@ -114,7 +114,7 @@ do
       echo "# key bindings" >> ~/.zshrc
       echo 'bindkey "\e[1~" beginning-of-line' >> ~/.zshrc
       echo 'bindkey "\e[4~" end-of-line' >> ~/.zshrc
-      echo "alis l='ls -lFh'" >> ~/.zshrc
+      echo "alias l='ls -lFh'" >> ~/.zshrc
       echo "alias ll='ls -laFh'" >> ~/.zshrc
     ;;
     6)
