@@ -15,19 +15,19 @@ Install() {
     wget https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
     cd ~/.vim/bundle
-    git clone https://github.com/tomtom/tlib_vim.git
-    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-    git clone https://github.com/garbas/vim-snipmate.git
-    git clone https://github.com/honza/vim-snippets.git
+    git clone --depth=1  https://github.com/tomtom/tlib_vim.git
+    git clone --depth=1  https://github.com/MarcWeber/vim-addon-mw-utils.git
+    git clone --depth=1  https://github.com/garbas/vim-snipmate.git
+    git clone --depth=1  https://github.com/honza/vim-snippets.git
 
     cd ~/.vim/bundle
-    git clone https://github.com/scrooloose/nerdtree.git
+    git clone --depth=1  https://github.com/scrooloose/nerdtree.git
 
     cd ~/.vim/bundle
-    git clone https://github.com/majutsushi/tagbar.git
+    git clone --depth=1  https://github.com/majutsushi/tagbar.git
 
     cd ~/.vim/bundle
-    git clone https://github.com/davidhalter/jedi-vim
+    git clone --depth=1  https://github.com/davidhalter/jedi-vim
     cd jedi-vim
     git submodule update --init
 
