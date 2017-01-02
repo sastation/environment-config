@@ -120,6 +120,11 @@ do
     6)
       echo "alias l='ls -lFh'" >> ~/.profile
       echo "alias ll='ls -laFh'" >> ~/.profile
+      echo "alias zping='sudo ping -f -n -c 100 '" >> ~/.profile
+      echo "alias zcurl='curl -o /dev/null '" >> ~/.profile
+      echo "alias zdu='du -sk * | sort -n '" >> ~/.profile
+      echo "alias zunproxy='unset http_proxy; unset https_proxy'" >> ~/.profile
+      echo "alias zproxy='zset(){ export http_proxy=$1; export https_proxy=$1; }; zset'" >> ~/.profile
     ;;        
     Q)
       break
