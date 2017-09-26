@@ -1,0 +1,7 @@
+alias ll='ls -laFh'
+alias l='ls -lFh'
+alias zping='sudo ping -f -n -c 100 '
+alias zcurl='curl -o /dev/null '
+alias zdu='du -sk * | sort -n '
+alias zunproxy='unset http_proxy; unset https_proxy'
+alias zproxy='zset(){ export http_proxy=$1; export https_proxy=$1; }; zset'

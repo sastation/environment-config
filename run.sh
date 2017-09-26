@@ -108,23 +108,14 @@ do
       esac
       #***
       cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
-      sed -i "s/^ZSH_THEME=.*/ZSH_THEME=zwang-rkj\n#ZSH_THEME=zwang-ys/" ~/.zshrc
+      sed -i "s/^ZSH_THEME=.*/#ZSH_THEME=zwang-rkj\nZSH_THEME=zwang-ys/" ~/.zshrc
     
-      echo >> ~/.zshrc
-      echo "# key bindings" >> ~/.zshrc
-      echo 'bindkey "\e[1~" beginning-of-line' >> ~/.zshrc
-      echo 'bindkey "\e[4~" end-of-line' >> ~/.zshrc
-      echo "alias l='ls -lFh'" >> ~/.zshrc
-      echo "alias ll='ls -laFh'" >> ~/.zshrc
+      cat conf/zsh.rc >> ~/.zshrc
+      cat conf/bash.rc >> ~/.zshrc
     ;;
     6)
       echo "alias l='ls -lFh'" >> ~/.profile
-      echo "alias ll='ls -laFh'" >> ~/.profile
-      echo "alias zping='sudo ping -f -n -c 100 '" >> ~/.profile
-      echo "alias zcurl='curl -o /dev/null '" >> ~/.profile
-      echo "alias zdu='du -sk * | sort -n '" >> ~/.profile
-      echo "alias zunproxy='unset http_proxy; unset https_proxy'" >> ~/.profile
-      echo "alias zproxy='zset(){ export http_proxy=$1; export https_proxy=$1; }; zset'" >> ~/.profile
+      cat conf/bash.rc >> ~/.profile
     ;;        
     Q)
       break
