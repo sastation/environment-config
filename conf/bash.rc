@@ -1,6 +1,7 @@
 alias ll='ls -laFh'
 alias l='ls -lFh'
 alias zping='sudo ping -f -n -c 100 '
+alias zhping='sudo hping3 -c 100 --fast -n -S '
 alias zcurl='curl -o /dev/null -w %{speed_download} '
 alias zmtr='mtr --report -c 1 --no-dns '
 alias zdu='du -sh * | sort -h '
