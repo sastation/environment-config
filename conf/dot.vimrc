@@ -1,6 +1,6 @@
-set term=linux              " donot clear screen on quit
-"set t_ti= t_te=            " donot send terminal signal to clear screen on quit
+set t_ti= t_te=            " donot send terminal signal to clear screen on quit
 set t_Co=256
+"set term=term              " terminal type, but it also doesn't clear screen on quit
 "set background=light
 "colorscheme phd
 "colorscheme Monokai-Refined
@@ -56,4 +56,6 @@ set nowrap "禁止自动折行
 set noruler "显示光标当前位置
 set nonumber "并闭开启行号显示
 
-
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
