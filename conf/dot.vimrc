@@ -30,6 +30,7 @@ set expandtab
 
 execute pathogen#infect()
 filetype plugin on
+autocmd FileType python set omnifunc=python3complete#Complete
 
 set formatoptions+=mM
 set formatoptions-=r
