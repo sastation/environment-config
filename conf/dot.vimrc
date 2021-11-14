@@ -60,3 +60,5 @@ set nonumber "并闭开启行号显示
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+let g:snipMate = { 'snippet_version' : 1 }
