@@ -1,5 +1,5 @@
 # zwang defined
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
-alias l='ls -lFh'
-alias ll='ls -laFh'
+alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
+
