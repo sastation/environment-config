@@ -108,7 +108,7 @@ do
       esac
       #***
       cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
-      sed -i "s/^ZSH_THEME=.*/#ZSH_THEME=zwang-michele\n#ZSH_THEME=zwang-rkj\nZSH_THEME=zwang-ys/" ~/.zshrc
+      sed -i "s/^ZSH_THEME=.*/#ZSH_THEME=zwang-michele\n#ZSH_THEME=zwang-rkj\n#ZSH_THEME=zwang-skwp\nZSH_THEME=zwang-ys/" ~/.zshrc
       sed -i '/^source \$ZSH\/oh-my-zsh.sh/i\DISABLE_AUTO_UPDATE="true"' ~/.zshrc
     
       cat conf/zsh.rc >> ~/.zshrc
