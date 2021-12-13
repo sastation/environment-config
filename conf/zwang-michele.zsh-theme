@@ -35,7 +35,8 @@ local reset="%{$reset_color%}"
 local -a color_array
 color_array=($green $red $cyan $yellow $blue $magenta $white)
 
-local username_normal_color=$white
+#local username_normal_color=$white
+local username_normal_color=$blue
 local username_root_color=$red
 local hostname_root_color=$red
 
