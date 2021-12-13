@@ -113,9 +113,13 @@ do
     
       cat conf/zsh.rc >> ~/.zshrc
       cat conf/bash.rc >> ~/.zshrc
+
+      # for disable warning on ~root/.zshrc
+      sudo chwon -R root:root ~/.oh-my-zsh
+      sudo chwon -R zwang:zwang ~/.oh-my-zsh/themes
     ;;
     6)
-      echo "alias l='ls -lFh'" >> ~/.profile
+      #echo "alias l='ls -lFh'" >> ~/.profile
       cat conf/bash.rc >> ~/.profile
     ;;        
     Q)
