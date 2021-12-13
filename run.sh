@@ -115,8 +115,8 @@ do
       cat conf/bash.rc >> ~/.zshrc
 
       # for disable warning on ~root/.zshrc
-      sudo chwon -R root:root ~/.oh-my-zsh
-      sudo chwon -R zwang:zwang ~/.oh-my-zsh/themes
+      sudo chown -R root:root ~/.oh-my-zsh
+      sudo chown -R zwang:zwang ~/.oh-my-zsh/themes
     ;;
     6)
       #echo "alias l='ls -lFh'" >> ~/.profile
