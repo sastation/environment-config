@@ -2,9 +2,10 @@ set t_ti= t_te=            " donot send terminal signal to clear screen on quit
 set t_Co=256
 "set term=term              " terminal type, but it also doesn't clear screen on quit
 "set background=light
-"colorscheme phd
-"colorscheme Monokai-Refined
-"colorscheme monokai
+"colorscheme default
+"colorscheme desert
+"colorscheme ron
+"colorscheme elflord
 colorscheme Tomorrow-Night-Bright
 set background=dark
 
