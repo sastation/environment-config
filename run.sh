@@ -118,7 +118,7 @@ do
 
       cat conf/zsh.rc >> ~/.zshrc
       cp conf/bash.rc ~/.sh_profile
-      echo "source ~zwang/.sh_proifle" >> ~/.zshrc
+      echo "source ~${USER}/.sh_proifle" >> ~/.zshrc
 
       # for disable warning on ~root/.zshrc
       sudo chown -R root:root ~/.oh-my-zsh
@@ -127,7 +127,7 @@ do
     6)
       #echo "alias l='ls -lFh'" >> ~/.profile
       cp conf/bash.rc ~/.sh_profile
-      echo "source ~zwang/.sh_proifle" >> ~/.bashrc
+      echo "source ~{USER}/.sh_proifle" >> ~/.bashrc
     ;;        
     Q)
       break
