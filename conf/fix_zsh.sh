@@ -7,6 +7,11 @@ sudo chown -R root:root ~/.oh-my-zsh
 sudo chown -R zwang:zwang ~/.oh-my-zsh/themes
 
 # zshrc & bashrc
-echo "alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'" >> ~/.zshrc
-echo "alias zunproxy='unset http_proxy; unset https_proxy; unset HTTP_PROXY; unset HTTPS_PROXY'" >> ~/.profile
-echo "alias zproxy='zset(){ export http_proxy=$1; export https_proxy=$1; export HTTP_PROXY=$1; export HTTPS_PROXY=$1}; zset'" >> ~/.profile
+ztheme="alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'" 
+echo $ztheme >> ~/.zshrc
+
+cp bash.rc ~/.sh_profile
+echo "source ~zwang/.sh_profile" >> ~/.bashrc
+echo "source ~zwang/.sh_profile" >> ~/.zshrc
+
+sed -i "/^ZSH_THEME=zwang-ys/i\#ZSH_THEME=zwang-dpoggi" ~/.zshrc

@@ -1,3 +1,4 @@
+# private env
 alias ll='ls -laFh'
 alias l='ls -lFh'
 alias zping='sudo ping -f -n -c 100 '
