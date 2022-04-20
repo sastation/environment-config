@@ -11,7 +11,7 @@ ztheme="alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'"
 echo $ztheme >> ~/.zshrc
 
 cp bash.rc ~/.sh_profile
-echo "source ~${USER}/.sh_profile" >> ~/.bashrc
-echo "source ~${USER}/.sh_profile" >> ~/.zshrc
+echo "source ${HOME}/.sh_profile" >> ~/.bashrc
+echo "source ${HOME}/.sh_profile" >> ~/.zshrc
 
 sed -i "/^ZSH_THEME=zwang-ys/i\#ZSH_THEME=zwang-dpoggi" ~/.zshrc
