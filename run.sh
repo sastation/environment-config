@@ -117,7 +117,7 @@ do
       sed -i '/^source \$ZSH\/oh-my-zsh.sh/i\DISABLE_AUTO_UPDATE="true"' ~/.zshrc
 
       cat conf/zsh.rc >> ~/.zshrc
-      cp conf/bash.rc ~/.sh_profile
+      cp conf/sh_profile ~/.sh_profile
       echo "source ~${USER}/.sh_profile" >> ~/.zshrc
 
       # for disable warning on ~root/.zshrc
@@ -126,7 +126,7 @@ do
     ;;
     6)
       #echo "alias l='ls -lFh'" >> ~/.profile
-      cp conf/bash.rc ~/.sh_profile
+      cp conf/sh_profile ~/.sh_profile
       echo "source ~${USER}/.sh_profile" >> ~/.bashrc
     ;;        
     Q)
