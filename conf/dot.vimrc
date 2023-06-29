@@ -1,6 +1,8 @@
+"set term=xterm             " terminal type, clear screen on after exit
+"set term=linux             " terminal type, not clear screen on after exit
+
 set t_ti= t_te=            " donot send terminal signal to clear screen on quit
 set t_Co=256
-set term=xterm             " terminal type, but it also doesn't clear screen on quit if term=linux
 "set background=light
 "colorscheme default
 "colorscheme desert
