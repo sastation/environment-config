@@ -92,7 +92,9 @@ do
     ;;
     4)
       Install "tmux"
-      #echo >> ~/.profile
+
+      echo "set -g default-shell /bin/zsh" >> ~/.tmux.conf
+      echo "set -g default-command /bin/zsh" >> ~/.tmux.conf
       #echo "alias tmux='tmux -2'" >> ~/.profile
     ;;
     5)
@@ -136,3 +138,5 @@ do
  
     MAX=`expr $MAX - 1`
 done
+
+exit 0
