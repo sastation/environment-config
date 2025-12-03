@@ -11,6 +11,28 @@ alias zhping='sudo hping3 -c 100 -i u32000 -q -n -A '
 alias zcurl='curl -k -o /dev/null -w %{speed_download} '
 alias zmtr='mtr --report -c 1 --no-dns '
 alias zdu='du -sxh * | sort -h '
-alias zunproxy='unset http_proxy; unset https_proxy; unset HTTP_PROXY; unset HTTPS_PROXY'
-alias zproxy='(){ export http_proxy=$1; export https_proxy=$1; export HTTP_PROXY=$1; export HTTPS_PROXY=$1; }'
-alias zspeed='(){ host=$1; curl -k -o /dev/null https://$host && zcurl https://$host/speed/100MB.bin; }'
+alias zunproxy='unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY'
+#alias zproxy='(){ export http_proxy=$1; export https_proxy=$1; export HTTP_PROXY=$1; export HTTPS_PROXY=$1; }'
+#alias zspeed='(){ host=$1; curl -k -o /dev/null https://$host && zcurl https://$host/speed/100MB.bin; }'
+
+# functions
+zspeed() { host="$1"; curl -k -o /dev/null "https://$host" && zcurl "https://$host/speed/100MB.bin"; echo; }
+zproxy() {
+    case "$1" in
+        "status"|"show"|"")
+            echo "Proxy: ${http_proxy:-None}"
+            ;;
+        "off"|"clear"|"unset")
+            unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
+            echo "Proxy cleared"
+            ;;
+        *)
+            export http_proxy="$1"
+            export https_proxy="$1"
+            export HTTP_PROXY="$1"
+            export HTTPS_PROXY="$1"
+            echo "Proxy set to: $1"
+            ;;
+    esac
+}
+
