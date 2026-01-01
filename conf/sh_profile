@@ -14,6 +14,7 @@ alias zdu='du -sxh * | sort -h '
 alias zunproxy='unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY'
 #alias zproxy='(){ export http_proxy=$1; export https_proxy=$1; export HTTP_PROXY=$1; export HTTPS_PROXY=$1; }'
 #alias zspeed='(){ host=$1; curl -k -o /dev/null https://$host && zcurl https://$host/speed/100MB.bin; }'
+alias zds='docker ps -a --format "table {{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"'
 
 # functions
 zspeed() { host="$1"; curl -k -o /dev/null "https://$host" && zcurl "https://$host/speed/100MB.bin"; echo; }
