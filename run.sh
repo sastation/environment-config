@@ -119,10 +119,15 @@ do
       cat conf/zsh.rc >> ~/.zshrc
       cp conf/sh_profile ~/.sh_profile
       echo "source ~${USER}/.sh_profile" >> ~/.zshrc
+    
+      # 语法高亮插件
+      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+      # 开启所需插件
+      sed -i 's/plugins=(git)/plugins=(\n  git \n  colored-man-pages \n  zsh-syntax-highlighting\n)/' ~/.zshrc
 
       # for disable warning on ~root/.zshrc
       sudo chown -R root:root ~/.oh-my-zsh
-      sudo chown -R zwang:zwang ~/.oh-my-zsh/themes
+      sudo chown -R zwang:zwang ~/.oh-my-zsh/{themes,custom}
     ;;
     6)
       #echo "alias l='ls -lFh'" >> ~/.profile
