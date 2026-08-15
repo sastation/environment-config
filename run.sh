@@ -31,20 +31,11 @@ if [ "$os_type" != "debian" ]; then
     exit 1
 fi
 
-# 运行前确认：脚本面向新用户，会覆盖已有配置
+# 运行前提示：面向新用户，仅作提醒，按任意键继续（Ctrl+C 可中断）
 echo "注意：本脚本面向新创建的用户环境初始化。"
 echo "运行后会覆盖当前用户的 ~/.vimrc、~/.screenrc、~/.ssh/config、~/.sh_profile 等，"
 echo "并修改 ~/.zshrc、~/.bashrc、~/.tmux.conf。如果该账号已有自订配置，请先备份。"
-printf "确定继续？(y/No)? "
-read confirm
-case $confirm in
-y|yes)
-    ;;
-*)
-    echo "已取消。"
-    exit 1
-    ;;
-esac
+read -p "按任意键继续 (Ctrl+C 中止) ..."
 
 Apt() {
     # install packages for ubuntu
