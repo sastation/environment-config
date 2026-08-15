@@ -14,7 +14,7 @@ OS() {
     # Debian/Ubuntu 系判定：os-release 的 ID 或 ID_LIKE 含 debian/ubuntu，或存在 debian_version
     if [ -r /etc/os-release ]; then
         . /etc/os-release
-        case "$ID $ID_LIKE" in
+        case "${ID:-}:${ID_LIKE:-}" in
             *debian*|*ubuntu*) os_type='debian' ;;
             *) os_type='unknow' ;;
         esac
