@@ -6,7 +6,8 @@ Common() {
     
     mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
     
-    sudo pip install jedi
+    # jedi 库由 jedi-vim 的 git submodule 自带（git submodule update --init），不再系统级 sudo pip 安装
+    #sudo pip install jedi
 }
 
 
@@ -43,6 +44,7 @@ Copy() {
 Main() {
     printf "Do you want to install or copy? (Install/Copy/Skip)? " 
     read opt
+    opt=${opt:-Skip}
     case $opt in
     i|I)
         Common

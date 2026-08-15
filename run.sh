@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# 防止未定义变量（代码 bug 直接报错退出）；pipefail 让管道失败可被感知
+# 不开 -e：交互菜单下普通出错只提示、不中断
+set -uo pipefail
+
 AG='sudo apt-get '
 MAX=30
 MASK=50
@@ -7,22 +11,40 @@ MASK=50
 os_type='None'
 
 OS() {
-    if [ -e /etc/issue ]; then
-        os_type='ubuntu'
-    elif [ -e /etc/redhat-release ]; then
-         os_type='redhat'
+    # Debian/Ubuntu 系判定：os-release 的 ID 或 ID_LIKE 含 debian/ubuntu，或存在 debian_version
+    if [ -r /etc/os-release ]; then
+        . /etc/os-release
+        case "$ID $ID_LIKE" in
+            *debian*|*ubuntu*) os_type='debian' ;;
+            *) os_type='unknow' ;;
+        esac
     elif [ -e /etc/debian_version ]; then
-         os_type='debian'
+        os_type='debian'
     else
         os_type='unknow'
     fi
 }
 OS #get operation distribution
-if [ $os_type != "ubuntu" -a $os_type != "debian" ]; then
-    echo "Only for Ubuntu/Debian!"
+if [ "$os_type" != "debian" ]; then
+    echo "Only for Debian/Ubuntu family!"
     echo "Your OS: "$os_type
-    exit -1
+    exit 1
 fi
+
+# 运行前确认：脚本面向新用户，会覆盖已有配置
+echo "注意：本脚本面向新创建的用户环境初始化。"
+echo "运行后会覆盖当前用户的 ~/.vimrc、~/.screenrc、~/.ssh/config、~/.sh_profile 等，"
+echo "并修改 ~/.zshrc、~/.bashrc、~/.tmux.conf。如果该账号已有自订配置，请先备份。"
+printf "确定继续？(y/No)? "
+read confirm
+case $confirm in
+y|yes)
+    ;;
+*)
+    echo "已取消。"
+    exit 1
+    ;;
+esac
 
 Apt() {
     # install packages for ubuntu
@@ -36,22 +58,73 @@ Apt() {
     return 0
 }
 
-Yum() {
-    # install packages for redhat/centos
-    return 0
-}
-
 Install() {
     local pkg=$1 
-    echo $os_type
-    if [ $os_type == 'ubuntu' ]; then
+    if [ $os_type == 'debian' ]; then
         Apt $pkg
-    elif [ $os_type == 'redhat' ]; then
-        Yum $pkg
     else
         echo 'do not know dirstribution'
     fi
 
+}
+
+Append_once() {
+    # 幂等追加：目标文件里已有该行则跳过，防止重复执行堆积
+    # 用法: Append_once "内容" "目标文件"
+    local line=$1
+    local file=$2
+    if ! grep -qF -- "$line" "$file" 2>/dev/null; then
+        echo "$line" >> "$file"
+    fi
+}
+
+opt_zsh() {
+    # 选项 5：配置 zsh（含可选的 oh-my-zsh）
+    Install "zsh"
+    #*** install on-my-zsh
+    printf "Do you want to install oh-my-zsh? (y/No)"
+    read opt
+    opt=${opt:-no}
+    ozh="no"
+    case $opt in
+    y|yes)
+      ozh="yes"
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    esac
+
+    # 纯 zsh 配置，不依赖 oh-my-zsh，始终执行
+    if ! grep -qF "# zwang defined" ~/.zshrc 2>/dev/null; then
+      cat conf/zsh.rc >> ~/.zshrc
+    fi
+    cp conf/sh_profile ~/.sh_profile
+    Append_once "source ~${USER}/.sh_profile" ~/.zshrc
+
+    # 以下步骤依赖 oh-my-zsh，未安装时跳过
+    if [ "$ozh" = "yes" ]; then
+      cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
+      str="ZSH_THEME=zwang-ys\n"
+      str=$str"#ZSH_THEME=zwang-rkj\n"
+      str=$str"#ZSH_THEME=zwang-skwp\n"
+      str=$str"#ZSH_THEME=zwang-michele\n"
+      str=$str"#ZSH_THEME=zwang-dpoggi\n"
+      sed -i "s/^ZSH_THEME=.*/$str/" ~/.zshrc
+      sed -i '/^source \$ZSH\/oh-my-zsh.sh/i\DISABLE_AUTO_UPDATE="true"' ~/.zshrc
+
+      # 语法高亮插件
+      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+      # 开启所需插件
+      if grep -q '^plugins=(git)' ~/.zshrc; then
+        sed -i 's/plugins=(git)/plugins=(\n  git \n  colored-man-pages \n  zsh-syntax-highlighting\n)/' ~/.zshrc
+      else
+        echo "警告: ~/.zshrc 中未找到 plugins=(git)，请手动开启 colored-man-pages/zsh-syntax-highlighting 插件"
+      fi
+
+      # for disable warning on ~root/.zshrc
+      sudo chown -R root:root ~/.oh-my-zsh
+      sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/{themes,custom}
+    else
+      echo "未安装 oh-my-zsh，跳过主题/插件/权限配置"
+    fi
 }
 
 while [ $MAX -gt 0 ] 
@@ -70,6 +143,7 @@ do
     
     printf "Choice: "
     read opt
+    opt=${opt:-Q}
 
     case $opt in
     0)
@@ -93,46 +167,17 @@ do
     4)
       Install "tmux"
 
-      echo "set -g default-shell /bin/zsh" >> ~/.tmux.conf
-      echo "set -g default-command /bin/zsh" >> ~/.tmux.conf
+      Append_once "set -g default-shell /bin/zsh" ~/.tmux.conf
+      Append_once "set -g default-command /bin/zsh" ~/.tmux.conf
       #echo "alias tmux='tmux -2'" >> ~/.profile
     ;;
     5)
-      Install "zsh"
-      #*** install on-my-zsh
-      printf "Do you want to install oh-my-zsh? (y/No)"
-      read opt
-      case $opt in
-      y|yes)
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-      esac
-      #***
-      cp conf/zwang*.zsh-theme ~/.oh-my-zsh/themes/
-      str="ZSH_THEME=zwang-ys\n"
-      str=$str"#ZSH_THEME=zwang-rkj\n"
-      str=$str"#ZSH_THEME=zwang-skwp\n"
-      str=$str"#ZSH_THEME=zwang-michele\n"
-      str=$str"#ZSH_THEME=zwang-dpoggi\n"
-      sed -i "s/^ZSH_THEME=.*/$str/" ~/.zshrc
-      sed -i '/^source \$ZSH\/oh-my-zsh.sh/i\DISABLE_AUTO_UPDATE="true"' ~/.zshrc
-
-      cat conf/zsh.rc >> ~/.zshrc
-      cp conf/sh_profile ~/.sh_profile
-      echo "source ~${USER}/.sh_profile" >> ~/.zshrc
-    
-      # 语法高亮插件
-      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-      # 开启所需插件
-      sed -i 's/plugins=(git)/plugins=(\n  git \n  colored-man-pages \n  zsh-syntax-highlighting\n)/' ~/.zshrc
-
-      # for disable warning on ~root/.zshrc
-      sudo chown -R root:root ~/.oh-my-zsh
-      sudo chown -R zwang:zwang ~/.oh-my-zsh/{themes,custom}
+      opt_zsh
     ;;
     6)
       #echo "alias l='ls -lFh'" >> ~/.profile
       cp conf/sh_profile ~/.sh_profile
-      echo "source ~${USER}/.sh_profile" >> ~/.bashrc
+      Append_once "source ~${USER}/.sh_profile" ~/.bashrc
     ;;        
     Q)
       break
