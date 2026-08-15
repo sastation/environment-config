@@ -114,9 +114,10 @@ opt_zsh() {
         echo "Warning: 'plugins=(git)' not found in ~/.zshrc, please enable colored-man-pages/zsh-syntax-highlighting manually"
       fi
 
-      # for disable warning on ~root/.zshrc
+      # disable warning for ~root/.zshrc
       sudo chown -R root:root ~/.oh-my-zsh
-      sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/{themes,custom}
+      #sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/{themes,custom}
+      sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/themes
     else
       echo "oh-my-zsh not installed, skip themes/plugins/permissions setup"
     fi
