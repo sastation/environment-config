@@ -6,7 +6,7 @@ set -uo pipefail
 
 AG='sudo apt-get '
 MAX=30
-MASK=50
+MASK=60
 
 os_type='None'
 
@@ -33,12 +33,13 @@ fi
 
 # 运行前提示：面向新用户，仅作提醒，按任意键继续（Ctrl+C 可中断）
 echo
-printf '%0.s*' {1..100};echo
+printf '%*s' $MASK|tr ' ' '*';echo
 echo "Note: this script is for initializing a newly created user environment."
 echo "It will overwrite current user's ~/.vimrc, ~/.screenrc, ~/.ssh/config, ~/.sh_profile, etc,"
 echo "and modify ~/.zshrc, ~/.bashrc, ~/.tmux.conf. Please back up existing customized configs first."
 printf '%0.s*' {1..100};echo
 read -p "Press any key to continue (Ctrl+C to abort) ..."
+printf "\n\n"
 
 Apt() {
     # install packages for ubuntu
