@@ -32,10 +32,10 @@ if [ "$os_type" != "debian" ]; then
 fi
 
 # 运行前提示：面向新用户，仅作提醒，按任意键继续（Ctrl+C 可中断）
-echo "注意：本脚本面向新创建的用户环境初始化。"
-echo "运行后会覆盖当前用户的 ~/.vimrc、~/.screenrc、~/.ssh/config、~/.sh_profile 等，"
-echo "并修改 ~/.zshrc、~/.bashrc、~/.tmux.conf。如果该账号已有自订配置，请先备份。"
-read -p "按任意键继续 (Ctrl+C 中止) ..."
+echo "Note: this script is for initializing a newly created user environment."
+echo "It will overwrite current user's ~/.vimrc, ~/.screenrc, ~/.ssh/config, ~/.sh_profile, etc,"
+echo "and modify ~/.zshrc, ~/.bashrc, ~/.tmux.conf. Please back up existing customized configs first."
+read -p "Press any key to continue (Ctrl+C to abort) ..."
 
 Apt() {
     # install packages for ubuntu
@@ -107,14 +107,14 @@ opt_zsh() {
       if grep -q '^plugins=(git)' ~/.zshrc; then
         sed -i 's/plugins=(git)/plugins=(\n  git \n  colored-man-pages \n  zsh-syntax-highlighting\n)/' ~/.zshrc
       else
-        echo "警告: ~/.zshrc 中未找到 plugins=(git)，请手动开启 colored-man-pages/zsh-syntax-highlighting 插件"
+        echo "Warning: 'plugins=(git)' not found in ~/.zshrc, please enable colored-man-pages/zsh-syntax-highlighting manually"
       fi
 
       # for disable warning on ~root/.zshrc
       sudo chown -R root:root ~/.oh-my-zsh
       sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/{themes,custom}
     else
-      echo "未安装 oh-my-zsh，跳过主题/插件/权限配置"
+      echo "oh-my-zsh not installed, skip themes/plugins/permissions setup"
     fi
 }
 
