@@ -115,9 +115,13 @@ opt_zsh() {
       fi
 
       # disable warning for ~root/.zshrc
-      sudo chown -R root:root ~/.oh-my-zsh
-      #sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/{themes,custom}
-      sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/themes
+      printf "Set ~/.oh-my-zsh ownership (root:root + user)? (y/No)? "
+      read opt
+      case $opt in
+      y|yes)
+        sudo chown -R root:root ~/.oh-my-zsh
+        sudo chown -R $(id -un):$(id -gn) ~/.oh-my-zsh/themes
+      esac
     else
       echo "oh-my-zsh not installed, skip themes/plugins/permissions setup"
     fi
@@ -143,8 +147,13 @@ do
 
     case $opt in
     0)
-      $AG update
-      $AG upgrade
+      printf "Do you want to run 'apt-get update && upgrade'? (y/No)? "
+      read opt
+      case $opt in
+      y|yes)
+        $AG update
+        $AG upgrade
+      esac
     ;;
     1)
       Install 'screen'
