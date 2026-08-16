@@ -110,17 +110,16 @@ opt_zsh() {
       # 语法高亮插件
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
       # 开启所需插件
-      if grep -q '^plugins=(' ~/.zshrc; then
-        sed -i '/^plugins=(/,/^)/c\
-plugins=(\
+      if grep -q '^plugins=(git)' ~/.zshrc; then
+        sed -i 's/^plugins=(git)/plugins=(\
   git\
   colored-man-pages\
   history-substring-search\
   zsh-autosuggestions\
   zsh-syntax-highlighting\
-)' ~/.zshrc
+)/' ~/.zshrc
       else
-        echo "Warning: 'plugins=(...)' not found in ~/.zshrc, please enable plugins manually"
+        echo "Warning: 'plugins=(git)' not found in ~/.zshrc, please enable plugins manually"
       fi
 
       # disable warning for ~root/.zshrc
