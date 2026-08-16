@@ -105,13 +105,22 @@ opt_zsh() {
       sed -i "s/^ZSH_THEME=.*/$str/" ~/.zshrc
       sed -i '/^source \$ZSH\/oh-my-zsh.sh/i\DISABLE_AUTO_UPDATE="true"' ~/.zshrc
 
+      # 自动建议插件
+      git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
       # 语法高亮插件
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
       # 开启所需插件
-      if grep -q '^plugins=(git)' ~/.zshrc; then
-        sed -i 's/plugins=(git)/plugins=(\n  git \n  colored-man-pages \n  zsh-syntax-highlighting\n)/' ~/.zshrc
+      if grep -q '^plugins=(' ~/.zshrc; then
+        sed -i '/^plugins=(/,/^)/c\
+plugins=(\
+  git\
+  colored-man-pages\
+  history-substring-search\
+  zsh-autosuggestions\
+  zsh-syntax-highlighting\
+)' ~/.zshrc
       else
-        echo "Warning: 'plugins=(git)' not found in ~/.zshrc, please enable colored-man-pages/zsh-syntax-highlighting manually"
+        echo "Warning: 'plugins=(...)' not found in ~/.zshrc, please enable plugins manually"
       fi
 
       # disable warning for ~root/.zshrc
